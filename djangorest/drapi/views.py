@@ -38,3 +38,31 @@ def aiquest_ins(request, pk):
     
     #Sent Json data to user
     return HttpResponse(json_data, content_type='application/json')
+
+
+from django.views.decorators.csrf import csrf_exempt
+import io
+from rest_framework.parsers import JSONParser
+@csrf_exempt
+def aiquest_create(request):
+    if request.method == 'POST':
+        json_data = request.body
+        
+        #json to stream data
+        stream = io.BytesIO(json_data)
+        
+        #stream to python
+        pythondata = JSONParser().parse(stream)
+        
+        #Python to complex data
+        serializer = AiquestSerializer(data=pythondata)
+        
+        if serializer.is_valid():
+            serializer.save()
+            res = {'msg': 'successfully inserted data'}
+            json_data = JSONRenderer().render(res)
+            return HttpResponse(json_data, content_type='application/json')
+        json_data = JSONRenderer().render(serializer.errors)
+        return HttpResponse(json_data, content_type='application/json')
+        
+        
