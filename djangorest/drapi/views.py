@@ -112,7 +112,7 @@ def aiquest_create(request):
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def aiquest_create(request, pk=None):
     if request.method == 'GET':
         id = pk
@@ -130,5 +130,12 @@ def aiquest_create(request, pk=None):
         serializer = AiquestSerializer(ai, many=True)
         return Response(serializer.data)
     
+    
+    if request.method == 'POST':
+        serializer = AiquestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg' : 'Successfully inserted data'})
+        return Response(serializer.errors)
         
     
