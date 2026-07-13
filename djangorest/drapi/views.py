@@ -108,7 +108,7 @@ def aiquest_create(request):
     
 
 
-
+'''
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -166,4 +166,63 @@ def aiquest_create(request, pk=None):
         ai.delete()
         return Response({'msg':'Succesfully Deleted Data'})
         
+    '''
     
+    
+    
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+class AiquestCreate(APIView):
+    def get(self, request, pk=None, format= None):
+        id = pk
+        if id is not None:
+            #Complex Data
+            ai = Aiquest.objects.get(id=id)
+            
+            #complex data to python dictionary
+            serializer = AiquestSerializer(ai)
+            return Response(serializer.data)
+        
+        #complex data
+        ai = Aiquest.objects.all()
+        # complex data to python dictionary
+        serializer = AiquestSerializer(ai, many=True)
+        return Response(serializer.data) 
+    
+    
+    def post(self, request, format= None):       
+        serializer = AiquestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg' : 'Successfully inserted data'})
+        return Response(serializer.errors)        
+    
+
+        
+    def put(self, request, pk, format= None):
+        id = pk
+        ai = Aiquest.objects.get(pk=id)
+        serializer = AiquestSerializer(ai, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg':'Full data updated'})
+        return Response(serializer.errors)
+            
+    def patch(self, request, pk, format= None):
+        id = pk
+        ai = Aiquest.objects.get(pk=id)
+        serializer = AiquestSerializer(ai, data=request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg':'Partial data updated'})
+        return Response(serializer.errors)     
+    
+       
+    def delete(self, request, pk, format= None):
+        id = pk
+        ai = Aiquest.objects.get(pk=id)
+        #serializer = AiquestSerializer(ai)
+        #serializer.delete()
+        ai.delete()
+        return Response({'msg':'Succesfully Deleted Data'})
