@@ -228,7 +228,7 @@ class AiquestCreate(APIView):
         return Response({'msg':'Succesfully Deleted Data'})'''
         
         
-
+'''
 from . models import Aiquest
 from . serializers import AiquestSerializer
 from rest_framework.generics import GenericAPIView
@@ -256,4 +256,21 @@ class Aiquest_Retrieve_Update_Destroy(GenericAPIView, RetrieveModelMixin, Update
 
     
     def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+        return self.destroy(request, *args, **kwargs)'''
+        
+        
+        
+from . models import Aiquest
+from .serializers import AiquestSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
+
+
+class Aiquest_List_Create(ListCreateAPIView):
+    queryset = Aiquest.objects.all()
+    serializer_class = AiquestSerializer
+    
+
+class Aiquest_Retrieve_Update_Destroy(RetrieveUpdateDestroyAPIView):
+    queryset = Aiquest.objects.all()
+    serializer_class = AiquestSerializer
