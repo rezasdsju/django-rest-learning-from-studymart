@@ -169,7 +169,7 @@ def aiquest_create(request, pk=None):
     '''
     
     
-    
+'''    
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -225,4 +225,18 @@ class AiquestCreate(APIView):
         #serializer = AiquestSerializer(ai)
         #serializer.delete()
         ai.delete()
-        return Response({'msg':'Succesfully Deleted Data'})
+        return Response({'msg':'Succesfully Deleted Data'})'''
+        
+        
+
+from . models import Aiquest
+from . serializers import AiquestSerializer
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import ListModelMixin
+
+class AiquestList(GenericAPIView, ListModelMixin):
+    queryset = Aiquest.objects.all()
+    serializer_class = AiquestSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
