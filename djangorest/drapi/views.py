@@ -5,6 +5,8 @@ from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse
 # Create your views here.
 
+
+'''
 #Queryset
 def aiquest_info(request):
     #Complex data
@@ -100,4 +102,33 @@ def aiquest_create(request):
         res = {'msg': 'Succesfully deleted data'}
         json_data = JSONRenderer().render(res)
         return HttpResponse(json_data, content_type='application/json')
+    '''
+    
+    
+    
+
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['GET'])
+def aiquest_create(request, pk=None):
+    if request.method == 'GET':
+        id = pk
+        if id is not None:
+            #Complex Data
+            ai = Aiquest.objects.get(id=id)
+            
+            #complex data to python dictionary
+            serializer = AiquestSerializer(ai)
+            return Response(serializer.data)
+        
+        #complex data
+        ai = Aiquest.objects.all()
+        # complex data to python dictionary
+        serializer = AiquestSerializer(ai, many=True)
+        return Response(serializer.data)
+    
+        
     
