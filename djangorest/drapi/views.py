@@ -112,7 +112,7 @@ def aiquest_create(request):
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-@api_view(['GET', 'POST', 'PUT', 'PATCH'])
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def aiquest_create(request, pk=None):
     if request.method == 'GET':
         id = pk
@@ -157,5 +157,13 @@ def aiquest_create(request, pk=None):
             serializer.save()
             return Response({'msg':'Partial data updated'})
         return Response(serializer.errors)
+        
+    if request.method == 'DELETE':
+        id = pk
+        ai = Aiquest.objects.get(pk=id)
+        #serializer = AiquestSerializer(ai)
+        #serializer.delete()
+        ai.delete()
+        return Response({'msg':'Succesfully Deleted Data'})
         
     
