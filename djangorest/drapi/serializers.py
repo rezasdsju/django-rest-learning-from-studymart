@@ -1,5 +1,19 @@
 from rest_framework import serializers
 from . models import Aiquest
+
+
+#Introduced Model Serializer
+class AiquestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aiquest
+        fields = ['teacher_name', 'course_name', 'course_duration', 'seat']
+
+
+
+
+
+
+'''
 class AiquestSerializer(serializers.Serializer):
     teacher_name = serializers.CharField(max_length=25)
     course_name = serializers.CharField(max_length=20)
@@ -19,4 +33,4 @@ class AiquestSerializer(serializers.Serializer):
         instance.seat = validated_data.get('seat', instance.seat)
         
         instance.save()
-        return instance
+        return instance'''
