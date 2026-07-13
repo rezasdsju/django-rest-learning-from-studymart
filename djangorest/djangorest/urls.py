@@ -34,4 +34,6 @@ urlpatterns = [
     path('aicreate/', views.AiquestCreate.as_view(), name='aicreate'),
     path('airetrieve/', views.AiquestRetrieve.as_view()),
     path('airetrieve/<int:pk>', views.AiquestRetrieve.as_view()),
+    path('aiupdate/<int:pk>', views.AiquestUpdate.as_view()),
+    
 ]
