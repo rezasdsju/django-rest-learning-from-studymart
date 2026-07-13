@@ -279,8 +279,10 @@ class Aiquest_Retrieve_Update_Destroy(RetrieveUpdateDestroyAPIView):
 from . models import Aiquest
 from .serializers import AiquestSerializer
 from rest_framework import viewsets
+from rest_framework.permissions import IsAdminUser
 
 class Aiquest_Model_View_sets(viewsets.ModelViewSet):
     queryset = Aiquest.objects.all()
     serializer_class = AiquestSerializer
+    permission_classes = [IsAdminUser]
     
