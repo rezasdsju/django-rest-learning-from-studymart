@@ -259,7 +259,7 @@ class Aiquest_Retrieve_Update_Destroy(GenericAPIView, RetrieveModelMixin, Update
         return self.destroy(request, *args, **kwargs)'''
         
         
-        
+'''        
 from . models import Aiquest
 from .serializers import AiquestSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -273,4 +273,14 @@ class Aiquest_List_Create(ListCreateAPIView):
 
 class Aiquest_Retrieve_Update_Destroy(RetrieveUpdateDestroyAPIView):
     queryset = Aiquest.objects.all()
+    serializer_class = AiquestSerializer'''
+    
+    
+from . models import Aiquest
+from .serializers import AiquestSerializer
+from rest_framework import viewsets
+
+class Aiquest_Model_View_sets(viewsets.ModelViewSet):
+    queryset = Aiquest.objects.all()
     serializer_class = AiquestSerializer
+    

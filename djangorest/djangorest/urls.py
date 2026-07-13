@@ -19,11 +19,17 @@ from django.contrib import admin
 from django.urls import include, path
 
 from drapi import views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+
+router.register('aiquest', views.Aiquest_Model_View_sets, basename='teacher')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('', include(router.urls))
     # path('aiinfo/', views.aiquest_info),
     # path('aiinfo/<int:pk>', views.aiquest_ins),
     # path('aicreate/', views.aiquest_create, name='aicreate'),
@@ -38,7 +44,9 @@ urlpatterns = [
     # path('aiupdate/<int:pk>', views.AiquestUpdate.as_view()),
     # path('aidestroy/<int:pk>', views.AiquestDestroy.as_view()),
     
-    path('aiquest/', views.Aiquest_List_Create.as_view()),
-    path('aiquest/<int:pk>', views.Aiquest_Retrieve_Update_Destroy.as_view()),
+    # path('aiquest/', views.Aiquest_List_Create.as_view()),
+    # path('aiquest/<int:pk>', views.Aiquest_Retrieve_Update_Destroy.as_view()),
+    
+    
     
 ]
